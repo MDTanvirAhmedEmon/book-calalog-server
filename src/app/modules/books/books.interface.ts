@@ -8,4 +8,26 @@ export type IBook = {
   reviews?: string; 
 };
 
+export const bookSearchableFields = [
+  'title',
+  'author',
+  'genre',
+]
+
+export const bookFilterableFields = [
+  'searchTerm',
+  'genre',
+
+]
+
+export const paginationFields = ['page', 'limit', 'sortBy', 'sortOrder']
+
+
+export type IBookFilters = {
+  searchTerm?: string
+  genre?: string
+  publicationYear?: number
+}
+
+
 export type BookModel = Model<IBook, {}>;
