@@ -4,7 +4,11 @@ import { BookControllers } from './books.controller'
 
 const router = express.Router()
 
-router.post('/book', BookControllers.createBook)
+router.post('/books', BookControllers.createBook)
+router.get('/books', )
+router.get('/:id', BookControllers.getSingleBook)
+router.patch('/:id', )
+router.delete('/:id', )
 
 
-export const BookRoutes = router
+export const BookRoutes = router;

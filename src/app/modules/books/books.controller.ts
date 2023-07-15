@@ -16,12 +16,27 @@ const createBook: RequestHandler = catchAsync(
       sendResponse<IBook>(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'user created successfully!',
+        message: 'book created successfully!',
         data: result,
       })
     }
   )
 
+
+  const getSingleBook = catchAsync(async (req: Request, res: Response) => {
+    const id = req.params.id
+  
+    const result = await BookServices.getSingleBook(id)
+  
+    sendResponse<IBook>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'book retrieved successfully !',
+      data: result,
+    })
+  })
+
 export const BookControllers = {
-    createBook
+    createBook,
+    getSingleBook,
 }
