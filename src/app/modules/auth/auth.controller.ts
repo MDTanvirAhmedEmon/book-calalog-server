@@ -19,7 +19,21 @@ const createUser: RequestHandler = catchAsync(
       })
     }
   )
+const signInUser: RequestHandler = catchAsync(
+    async (req: Request, res: Response) => {
+      const { ...userData } = req.body;
+      const result = await AuthServices.signInUser(userData)
+  
+      sendResponse<IUser>(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'user Sign In successfully!',
+        data: result,
+      })
+    }
+  )
 
 export const AuthControllers = {
-    createUser
+    createUser,
+    signInUser
 }

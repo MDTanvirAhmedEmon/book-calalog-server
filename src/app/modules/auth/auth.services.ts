@@ -15,7 +15,24 @@ const createUser = async (user: IUser): Promise<IUser | null> => {
     const newUser = await User.create(user)
     return newUser;
   }
+const signInUser = async (data: Partial<IUser>): Promise<IUser | null> => {
+
+    const {email, password} = data;
+    const userFromDB = await User.findOne({email: email})
+    console.log(userFromDB);
+    const dbUserPassword = userFromDB?.password
+    console.log(dbUserPassword);
+
+    // const { password } = userFromDB;
+
+    if(password !== dbUserPassword){
+      throw new ApiError(httpStatus.BAD_REQUEST, 'wrong password');
+    }
+      
+    return userFromDB;
+  }
 
   export const AuthServices = {
-    createUser
+    createUser,
+    signInUser,
   }
