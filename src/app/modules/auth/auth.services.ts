@@ -19,14 +19,13 @@ const signInUser = async (data: Partial<IUser>): Promise<IUser | null> => {
 
     const {email, password} = data;
     const userFromDB = await User.findOne({email: email})
-    console.log(userFromDB);
+ 
     const dbUserPassword = userFromDB?.password
-    console.log(dbUserPassword);
 
     // const { password } = userFromDB;
 
     if(password !== dbUserPassword){
-      throw new ApiError(httpStatus.BAD_REQUEST, 'wrong password');
+      throw new Error('wrong password');
     }
       
     return userFromDB;

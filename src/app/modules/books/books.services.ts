@@ -74,7 +74,6 @@ const createBook = async (book: IBook): Promise<IBook | null> => {
     return result
   }
 
-
   
 const updateBook = async (
   id: string,
@@ -94,6 +93,28 @@ const deleteBook = async (
   return result
 }
 
+const recentBooks = async (): Promise<IBook[] | null> => {
+  const books = await Book.find({}).sort({ createdAt: -1 }).limit(4);
+  return books;
+}
+const postComment = async (id: string, comment: string): Promise<IBook | null> => {
+  const result = await Book.findByIdAndUpdate(
+    { _id: id },
+    { $push: { reviews: comment } },
+    { new: true },
+  );
+  return result;
+}
+
+const getComment = async (id: string): Promise<IBook | null> => {
+  const result = await Book.findOne(
+    { _id: id },
+    { reviews: 1, _id: 0 }
+  );
+  return result;
+}
+
+
 
   export const BookServices = {
     createBook,
@@ -101,4 +122,7 @@ const deleteBook = async (
     getSingleBook,
     updateBook,
     deleteBook,
+    recentBooks,
+    postComment,
+    getComment,
   }

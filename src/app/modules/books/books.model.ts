@@ -19,11 +19,14 @@ const BookSchema = new Schema<IBook, BookModel>(
         type: String,
         required: true,
       },
-      reviews: [
-        {
-            type: String
-        }
-      ],
+      authorId: {
+        type: String,
+        required: true,
+        unique: true,
+      },
+      reviews: {
+        type: [String]
+      },
     },
     {
       timestamps: true,

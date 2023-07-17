@@ -46,7 +46,7 @@ const createBook: RequestHandler = catchAsync(
     sendResponse<IBook>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'book retrieved successfully !',
+      message: 'book retrieved successfully!',
       data: result,
     })
   })
@@ -59,7 +59,7 @@ const createBook: RequestHandler = catchAsync(
     sendResponse<IBook>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'book updated successfully !',
+      message: 'book updated successfully!',
       data: result,
     })
   })
@@ -71,15 +71,65 @@ const createBook: RequestHandler = catchAsync(
     sendResponse<IBook>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'book deleted successfully !',
+      message: 'book deleted successfully!',
       data: result,
     })
   })
 
+  const recentBooks = catchAsync(async (req: Request, res: Response) => {
+
+    const result = await BookServices.recentBooks()
+  
+    sendResponse<IBook[]>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'recent book retrieved successfully!',
+      data: result,
+    })
+  })
+  const postComment = catchAsync(async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id
+      const comment = req.body.comment;
+      const result = await BookServices.postComment(id, comment)
+      res.status(200).json({
+        success: true,
+        message: 'post comment successfully!',
+        data: result,
+      })
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        message: 'Failed to post comment',
+      })
+    }
+
+  })
+
+  const getComment = catchAsync(async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id
+      const result = await BookServices.getComment(id)
+      res.status(200).json({
+        success: true,
+        message: 'post comment successfully!',
+        data: result,
+      })
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        message: 'Failed to post comment',
+      })
+    }
+  })
+  
 export const BookControllers = {
     createBook,
     getAllBooks,
     getSingleBook,
     updateBook,
     deleteBook,
+    recentBooks,
+    postComment,
+    getComment
 }

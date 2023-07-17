@@ -5,7 +5,8 @@ export type IBook = {
   imageUrl: string;
   author: string;
   genre: string;
-  reviews?: string; 
+  authorId: string;
+  reviews?: string[]; 
 };
 
 export const bookSearchableFields = [
