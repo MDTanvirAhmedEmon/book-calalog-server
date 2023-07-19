@@ -94,7 +94,7 @@ const deleteBook = async (
 }
 
 const recentBooks = async (): Promise<IBook[] | null> => {
-  const books = await Book.find({}).sort({ createdAt: -1 }).limit(4);
+  const books = await Book.find({}).sort({ createdAt: -1 }).limit(10);
   return books;
 }
 const postComment = async (id: string, comment: string): Promise<IBook | null> => {
